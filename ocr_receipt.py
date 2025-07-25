@@ -12,6 +12,15 @@ import easyocr
 app = FastAPI()
 reader = easyocr.Reader(['en'])
 
+# ✅ Add CORS middleware after app initialization
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],    # For development; restrict to frontend domain in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 TEMP_DIR = "./receipts"
 os.makedirs(TEMP_DIR, exist_ok=True)
 
